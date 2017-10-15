@@ -102,5 +102,5 @@ class ShadowDelta:
         deviceShadowHandler.shadowRegisterDeltaCallback(self.customShadowCallback_Delta)
         
         # Loop forever
-        while True:
-            time.sleep(1)
+        #while True:
+        #    time.sleep(1)
