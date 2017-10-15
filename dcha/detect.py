@@ -27,6 +27,8 @@ def main():
         gpio.add_event_detect(26, gpio.RISING, callback=light_callback, bouncetime=3000)
         # 24 for shock sensor
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
+        
+        act.listenDelta()
     
         while True:
             time.sleep(1)
