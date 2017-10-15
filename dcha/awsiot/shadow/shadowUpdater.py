@@ -127,10 +127,9 @@ class ShadowUpdater:
         if lightOn is not None:
             json += '"lightOn":"' + str(lightOn) + '"'
             
-        if json:
-            json += ', '
-        
         if shocking is not None:
+            if json:
+                json += ', '
             json += '"shocking":"' + str(shocking) + '"'
             
         JSONPayload = '{"state":{"desired":{' + json + '}}}'
