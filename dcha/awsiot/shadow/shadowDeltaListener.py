@@ -43,8 +43,8 @@ class ShadowDelta:
         print(responseStatus)
         payloadDict = json.loads(payload)
         print("++++++++DELTA++++++++++")
-        print("lighton: " + str(payloadDict["state"]["lightOn"]))
-        print("lighton: " + str(payloadDict["state"]["shocking"]))
+        print("lightOn: " + str(payloadDict["state"]["lightOn"]))
+        print("shocking: " + str(payloadDict["state"]["shocking"]))
         print("version: " + str(payloadDict["version"]))
         print("+++++++++++++++++++++++\n\n")
         
@@ -70,7 +70,7 @@ class ShadowDelta:
         
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.ERROR)
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)

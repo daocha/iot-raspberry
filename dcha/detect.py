@@ -10,33 +10,50 @@ gpio.setup(26, gpio.IN)
 
 print("initializing...")
 
+lighton = False
+lighton_new = False
+shocking = False
+shocking_new = False
+
 def light_callback(channel):
-    print("Light detected...")
-    if gpio.input(channel):
-        act.updateThing('True', None)
+    onoff = gpio.input(channel)
+    print("Light detected, value = " + onoff)
+    if onoff:
+        lighton_new = True
     else:
-        act.updateThing('False', None)
+        lighton_new = False
+    
+    
 
 def shock_callback(channel):
-    print("Shocking detected...")
-    if gpio.input(channel):
-        act.updateThing(None, 'True')
-    else:
-        act.updateThing(None, 'False')
+    onoff = gpio.input(channel)
+    print("Shocking detected, value = " + onoff)
+    shocking_new = True
+    time.sleep(10)
+    shocking_new = False
+    
 
 def main():
     try:
         print("adding event listeners")
         # 26 for light sensor: light on
-        gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=3000)
+        gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=200)
         
         # 24 for shock sensor: shocking
-        gpio.add_event_detect(24, gpio.BOTH, callback=shock_callback, bouncetime=1000)
+        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=200)
         
         act.listenDelta()
     
         while True:
-            time.sleep(1)
+            if not lighton ^ lighton_new:
+                act.updateThing(str(lighton_new), None)
+                lighton = lighton_new
+            
+            if not shocking ^ shocking_new:
+                act.updateThing(None, str(shocking_new))
+                shocking = shocking_new
+                
+            time.sleep(5)
     except:
         gpio.cleanup()
 

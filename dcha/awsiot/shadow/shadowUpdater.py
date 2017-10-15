@@ -91,7 +91,7 @@ class ShadowUpdater:
         
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
-        logger.setLevel(logging.DEBUG)
+        logger.setLevel(logging.ERROR)
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)
@@ -133,7 +133,7 @@ class ShadowUpdater:
             json += '"shocking":"' + str(shocking) + '"'
             
         JSONPayload = '{"state":{"desired":{' + json + '}}}'
-        print('Shadow State: \n', JSONPayload)
+        #print('Shadow State: \n', JSONPayload)
         deviceShadowHandler.shadowUpdate(JSONPayload, self.customShadowCallback_Update, 5)
 
 #updater = ShadowUpdater()
