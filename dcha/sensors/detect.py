@@ -20,14 +20,18 @@ def shock_callback(channel):
     act.updateThing(None, 'True')
     # act.sendEmail()
 
-try:
-    print("adding event listeners")
-    # 26 for light sensor
-    gpio.add_event_detect(26, gpio.RISING, callback=light_callback, bouncetime=3000)
-    # 24 for shock sensor
-    gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
+def main():
+    try:
+        print("adding event listeners")
+        # 26 for light sensor
+        gpio.add_event_detect(26, gpio.RISING, callback=light_callback, bouncetime=3000)
+        # 24 for shock sensor
+        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
+    
+        while True:
+            time.sleep(1)
+    except:
+        gpio.cleanup()
 
-    while True:
-        time.sleep(1)
-except:
-    gpio.cleanup()
+if __name__ == "__main__":
+    main()
