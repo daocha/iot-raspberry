@@ -119,7 +119,7 @@ class ShadowUpdater:
         if lightOn is not None:
             json += '"lightOn":"' + str(lightOn) + '"'
             
-        if not json:
+        if json:
             json += ', '
         
         if shocking is not None:
@@ -130,4 +130,4 @@ class ShadowUpdater:
         deviceShadowHandler.shadowUpdate(JSONPayload, self.customShadowCallback_Update, 5)
 
 #updater = ShadowUpdater()
-#updater.updateAWSThing('False', 'True')
+#updater.updateAWSThing(None, 'True')
