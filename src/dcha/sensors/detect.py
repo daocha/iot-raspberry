@@ -1,6 +1,6 @@
 import RPi.GPIO as gpio
 import time
-from dcha.raspberry.functions import Action as act
+from dcha.actions.functions import Action as act
 
 gpio.setmode(gpio.BOARD)
 gpio.setup(24, gpio.IN, pull_up_down=gpio.PUD_UP)
@@ -10,10 +10,12 @@ print("initializing...")
 
 def light_callback(channel):
     print("Light detected...")
+    act.updateThing('True', None)
     #act.sendEmail()
 
 def shock_callback(channel):
-    print("Shock detected...")
+    print("Shocking detected...")
+    act.updateThing(None, 'True')
     #act.sendEmail()
 
 try:
