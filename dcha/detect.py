@@ -31,7 +31,16 @@ def shock_callback(channel):
     shocking_new = True
     time.sleep(10)
     shocking_new = False
-    
+
+def status_checking():
+    print("status checking...")
+    if lighton ^ lighton_new:
+        act.updateThing(str(lighton_new), None)
+        lighton = lighton_new
+    if shocking ^ shocking_new:
+        act.updateThing(None, str(shocking_new))
+        shocking = shocking_new
+    act.listenDelta()
 
 def main():
     try:
@@ -43,17 +52,7 @@ def main():
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=500)
         
         while True:
-            print("loop checking...")
-            if lighton ^ lighton_new:
-                act.updateThing(str(lighton_new), None)
-                lighton = lighton_new
-            
-            if shocking ^ shocking_new:
-                act.updateThing(None, str(shocking_new))
-                shocking = shocking_new
-                
-            act.listenDelta()
-                
+            status_checking()
             time.sleep(5)
     except:
         gpio.cleanup()
