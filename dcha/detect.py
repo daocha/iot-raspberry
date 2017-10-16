@@ -5,10 +5,9 @@
  * Push to AWS IoT 
  */
  '''
+import RPi.GPIO as gpio
 
 import time
-
-import RPi.GPIO as gpio
 import sys,traceback
 from actions.functions import Action as act
 

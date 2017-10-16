@@ -1,3 +1,9 @@
+'''
+/*
+ * Actions triggered by sensor detection
+ */
+ '''
+
 from awsiot.shadow.shadowUpdater import ShadowUpdater
 from awsiot.shadow.shadowDeltaListener import ShadowDelta
 
