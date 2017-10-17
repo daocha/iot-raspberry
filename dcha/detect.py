@@ -54,13 +54,15 @@ def status_checking():
         act.updateThing(None, str(shocking_new))
         shocking = shocking_new
 
-def loop_status_checking():
+def loop_status_checking(threadName):
     while True:
+        print(threadName)
         status_checking()
         time.sleep(10)
 
-def loop_delta_listening():
+def loop_delta_listening(threadName):
     while True:
+        print(threadName)
         act.listenDelta()
         time.sleep(10)
 
@@ -74,11 +76,14 @@ def main():
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
         
         try:
-            _thread.start_new_thread(loop_delta_listening)
-            _thread.start_new_thread(loop_status_checking)
+            _thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
+            _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
         except: 
             print("Error: unable to start thread")
+            traceback.print_exc(file=sys.stdout)
         
+        while True:
+            pass
     except:
         traceback.print_exc(file=sys.stdout)
         gpio.cleanup()
