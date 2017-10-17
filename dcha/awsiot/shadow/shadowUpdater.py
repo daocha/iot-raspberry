@@ -25,7 +25,8 @@ class ShadowUpdater:
     # 	}
     # }
     # Custom Shadow callback
-    def customShadowCallback_Update(self, payload, responseStatus, token):
+    @staticmethod
+    def customShadowCallback_Update(payload, responseStatus, token):
         # payload is a JSON string ready to be parsed using json.loads(...)
         # in both Py2.x and Py3.x
         if responseStatus == "timeout":
@@ -47,8 +48,9 @@ class ShadowUpdater:
             print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
         if responseStatus == "rejected":
             print("Update request " + token + " rejected!")
-            
-    def customShadowCallback_Delete(self, payload, responseStatus, token):
+    
+    @staticmethod
+    def customShadowCallback_Delete(payload, responseStatus, token):
         if responseStatus == "timeout":
             print("Delete request " + token + " time out!")
         if responseStatus == "accepted":
@@ -57,8 +59,9 @@ class ShadowUpdater:
             print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
         if responseStatus == "rejected":
             print("Delete request " + token + " rejected!")
-            
-    def updateAWSThing(self, lightOn, shocking):
+    
+    @staticmethod
+    def updateAWSThing(lightOn, shocking):
         config = configparser.ConfigParser()
         rootpath = project.getProjectPath()
         config.read(rootpath + 'config/aws.properties')
@@ -123,7 +126,7 @@ class ShadowUpdater:
             
         JSONPayload = '{"state":{"desired":{' + json + '}}}'
         #print('Shadow State: \n', JSONPayload)
-        deviceShadowHandler.shadowUpdate(JSONPayload, self.customShadowCallback_Update, 5)
+        deviceShadowHandler.shadowUpdate(JSONPayload, ShadowUpdater.customShadowCallback_Update, 5)
 
 #updater = ShadowUpdater()
 #updater.updateAWSThing(None, 'True')

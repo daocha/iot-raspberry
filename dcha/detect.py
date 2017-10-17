@@ -47,24 +47,30 @@ def shock_callback(channel):
 def status_checking():
     print("status checking...")
     global lighton, lighton_new, shocking, shocking_new
+    update = False
+    
     if lighton ^ lighton_new:
-        act.updateThing(str(lighton_new), None)
+        update = True
         lighton = lighton_new
+        
     if shocking ^ shocking_new:
-        act.updateThing(None, str(shocking_new))
+        update = True
         shocking = shocking_new
+        
+    if update:
+        act.updateThing(str(lighton_new), str(shocking_new))
 
 def loop_status_checking(threadName):
     while True:
         print(threadName)
         status_checking()
-        time.sleep(10)
+        time.sleep(15)
 
 def loop_delta_listening(threadName):
     while True:
         print(threadName)
         act.listenDelta()
-        time.sleep(10)
+        time.sleep(15)
 
 def main():
     try:

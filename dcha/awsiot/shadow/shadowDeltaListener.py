@@ -25,7 +25,8 @@ class ShadowDelta:
     # 	}
     # }
     # Custom Shadow callback
-    def customShadowCallback_Delta(self, payload, responseStatus, token):
+    @staticmethod
+    def customShadowCallback_Delta(payload, responseStatus, token):
         # payload is a JSON string ready to be parsed using json.loads(...)
         # in both Py2.x and Py3.x
         print(responseStatus)
@@ -35,8 +36,9 @@ class ShadowDelta:
         print("shocking: " + str(payloadDict["state"]["shocking"]))
         print("version: " + str(payloadDict["version"]))
         print("+++++++++++++++++++++++\n\n")
-        
-    def listenDelta(self):
+    
+    @staticmethod
+    def listenDelta():
         config = configparser.ConfigParser()
         rootpath = project.getProjectPath()
         config.read(rootpath + 'config/aws.properties')
@@ -87,7 +89,9 @@ class ShadowDelta:
         deviceShadowHandler = myAWSIoTMQTTShadowClient.createShadowHandlerWithName(thingName, True)
         
         # Listen on deltas
-        deviceShadowHandler.shadowRegisterDeltaCallback(self.customShadowCallback_Delta)
+        deviceShadowHandler.shadowRegisterDeltaCallback(ShadowDelta.customShadowCallback_Delta)
+        
+        myAWSIoTMQTTShadowClient.disconnect()
         
         # Loop forever
         #while True:
