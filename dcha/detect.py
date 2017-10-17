@@ -7,6 +7,7 @@
  '''
 import RPi.GPIO as gpio
 
+import _thread
 import time
 import sys,traceback
 from actions.functions import Action as act
@@ -52,20 +53,32 @@ def status_checking():
     if shocking ^ shocking_new:
         act.updateThing(None, str(shocking_new))
         shocking = shocking_new
-    act.listenDelta()
+
+def loop_status_checking():
+    while True:
+        status_checking()
+        time.sleep(10)
+
+def loop_delta_listening():
+    while True:
+        act.listenDelta()
+        time.sleep(10)
 
 def main():
     try:
         print("adding event listeners")
         # 26 for light sensor: light on
-        gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=500)
+        gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
         
         # 24 for shock sensor: shocking
-        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=500)
+        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
         
-        while True:
-            status_checking()
-            time.sleep(5)
+        try:
+            _thread.start_new_thread(loop_delta_listening)
+            _thread.start_new_thread(loop_status_checking)
+        except: 
+            print("Error: unable to start thread")
+        
     except:
         traceback.print_exc(file=sys.stdout)
         gpio.cleanup()
