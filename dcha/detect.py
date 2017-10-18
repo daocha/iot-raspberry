@@ -28,7 +28,7 @@ shocking_new = False
 def light_callback(channel):
     onoff = gpio.input(channel)
     print("Light detected, value = " + str(onoff))
-    global lighton, lighton_new
+    global lighton_new
     if onoff:
         lighton_new = True
     else:
@@ -37,9 +37,8 @@ def light_callback(channel):
     
 
 def shock_callback(channel):
-    onoff = gpio.input(channel)
-    print("Shocking detected, value = " + str(onoff))
-    global shocking, shocking_new
+    print("Shocking detected.")
+    global shocking_new
     shocking_new = True
     time.sleep(10)
     shocking_new = False
