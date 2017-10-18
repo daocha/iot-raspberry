@@ -48,8 +48,13 @@ class ShadowDelta:
         certificatePath = rootpath + config['AWSConfig']['cert']
         privateKeyPath = rootpath + config['AWSConfig']['privateKey']
         useWebsocket = config['AWSConfig']['useWebsocket'] == 'True'
-        thingName = 'pi2-sensors'
+        connectAWS = config['AWSConfig']['connectAWS'] == 'True'
+        thingName = config['AWSConfig']['thingName']
         clientId = config['AWSConfig']['clientId']
+        
+        if not connectAWS:
+            print("Connecting AWS is turned off. Aborting...")
+            return
         
         if useWebsocket and certificatePath and privateKeyPath:
             print("X.509 cert authentication and WebSocket are mutual exclusive. Please pick one.")
