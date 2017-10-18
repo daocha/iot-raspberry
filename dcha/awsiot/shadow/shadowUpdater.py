@@ -44,6 +44,11 @@ class ShadowUpdater:
                 print("shocking: " + str(payloadDict["state"]["desired"]["shocking"]))
             except:
                 print('')
+            
+            try:
+                print("motion: " + str(payloadDict["state"]["desired"]["motion"]))
+            except:
+                print('')
                 
             print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
         if responseStatus == "rejected":

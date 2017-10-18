@@ -34,6 +34,7 @@ class ShadowDelta:
         print("++++++++DELTA++++++++++")
         print("lightOn: " + str(payloadDict["state"]["lightOn"]))
         print("shocking: " + str(payloadDict["state"]["shocking"]))
+        print("motion: " + str(payloadDict["state"]["motion"]))
         print("version: " + str(payloadDict["version"]))
         print("+++++++++++++++++++++++\n\n")
     
