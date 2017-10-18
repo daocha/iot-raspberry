@@ -54,7 +54,7 @@ def shock_callback(channel):
 
 def status_checking():
     print("status checking...")
-    global lighton, lighton_new, shocking, shocking_new
+    global lighton, lighton_new, shocking, shocking_new, motion, motion_new
     updating = False
     
     if lighton ^ lighton_new:
