@@ -61,7 +61,7 @@ class ShadowUpdater:
             print("Delete request " + token + " rejected!")
     
     @staticmethod
-    def updateAWSThing(lightOn, shocking):
+    def updateAWSThing(update_json):
         config = configparser.ConfigParser()
         rootpath = project.getProjectPath()
         config.read(rootpath + 'config/aws.properties')
@@ -115,16 +115,7 @@ class ShadowUpdater:
         #deviceShadowHandler.shadowDelete(self.customShadowCallback_Delete, 5)
         
         # Update shadow 
-        json = ''
-        if lightOn is not None:
-            json += '"lightOn":"' + str(lightOn) + '"'
-            
-        if shocking is not None:
-            if json:
-                json += ', '
-            json += '"shocking":"' + str(shocking) + '"'
-            
-        JSONPayload = '{"state":{"desired":{' + json + '}}}'
+        JSONPayload = '{"state":{"desired":' + update_json + '}}'
         #print('Shadow State: \n', JSONPayload)
         deviceShadowHandler.shadowUpdate(JSONPayload, ShadowUpdater.customShadowCallback_Update, 5)
 

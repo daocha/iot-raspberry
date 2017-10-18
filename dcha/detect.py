@@ -19,11 +19,13 @@ gpio.setup(26, gpio.IN)
 
 print("initializing...")
 
-global lighton, lighton_new, shocking, shocking_new
+global lighton, lighton_new, shocking, shocking_new, motion, motion_new
 lighton = False
 lighton_new = False
 shocking = False
 shocking_new = False
+motion = False
+motion_new = False
 
 def light_callback(channel):
     onoff = gpio.input(channel)
@@ -33,8 +35,15 @@ def light_callback(channel):
         lighton_new = True
     else:
         lighton_new = False
-    
-    
+
+def motion_callback(channel):
+    onoff = gpio.input(channel)
+    print("Body motion detected, value = " + str(onoff))
+    global motion_new
+    if onoff:
+        motion_new = True
+    else:
+        motion_new = False
 
 def shock_callback(channel):
     print("Shocking detected.")
@@ -46,18 +55,24 @@ def shock_callback(channel):
 def status_checking():
     print("status checking...")
     global lighton, lighton_new, shocking, shocking_new
-    update = False
+    updating = False
     
     if lighton ^ lighton_new:
-        update = True
+        updating = True
         lighton = lighton_new
+    
+    if motion ^ motion_new:
+        updating = True
+        motion = motion_new
         
     if shocking ^ shocking_new:
-        update = True
+        updating = True
         shocking = shocking_new
         
-    if update:
-        act.updateThing(str(lighton_new), str(shocking_new))
+    update_json = '{"lightOn":"' + lighton_new + '", "shocking":"' + shocking_new + '", "motion":"' + motion_new + '"}'
+        
+    if updating:
+        act.updateThing(update_json)
 
 def loop_status_checking(threadName):
     while True:
@@ -75,7 +90,10 @@ def main():
     try:
         print("adding event listeners")
         # 26 for light sensor: light on
-        gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
+        # gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
+        
+        # 26 for body motion detecting sensor
+        gpio.add_event_detect(26, gpio.BOTH, callback=motion_callback, bouncetime=1000)
         
         # 24 for shock sensor: shocking
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)

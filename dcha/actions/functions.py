@@ -9,9 +9,9 @@ from awsiot.shadow.shadowDeltaListener import ShadowDelta
 
 class Action:
     @staticmethod
-    def updateThing(lightOn, shocking):
-        print("Updating iot state...")
-        ShadowUpdater.updateAWSThing(lightOn, shocking)
+    def updateThing(update_json):
+        print("Updating iot state: ", update_json)
+        ShadowUpdater.updateAWSThing(update_json)
     
     @staticmethod
     def listenDelta():
