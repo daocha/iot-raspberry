@@ -14,9 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url,include
-from django.contrib import admin
+from django.conf import settings
+from django.views.static import serve
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^device/', include('iot_backend.urls')),
+    #url(r'^$', include('iot_backend.urls')),
+    url(r'^$', serve, {'path':'index.html', 'document_root': settings.STATIC_ROOT,}),
 ]
