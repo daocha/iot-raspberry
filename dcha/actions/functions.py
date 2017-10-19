@@ -12,7 +12,7 @@ class Action:
     @staticmethod
     def updateThing(update_json):
         print("Updating iot state: ", update_json)
-        shadowUpdater = ShadowUpdater
+        shadowUpdater = ShadowUpdater()
         shadowUpdater.updateAWSThing(update_json)
     
     @staticmethod
