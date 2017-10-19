@@ -4,7 +4,7 @@
  */
  '''
 import json
-from awsiot.shadow import shadowUtils as shadowUtils
+from awsiot.shadow import shadowUtils
 
 class ShadowUpdater:
 
@@ -19,8 +19,7 @@ class ShadowUpdater:
     # 	}
     # }
     # Custom Shadow callback
-    @staticmethod
-    def customShadowCallback_Update(payload, responseStatus, token):
+    def customShadowCallback_Update(self, payload, responseStatus, token):
         # payload is a JSON string ready to be parsed using json.loads(...)
         # in both Py2.x and Py3.x
         if responseStatus == "timeout":
@@ -48,8 +47,7 @@ class ShadowUpdater:
         if responseStatus == "rejected":
             print("Update request " + token + " rejected!")
     
-    @staticmethod
-    def customShadowCallback_Delete(payload, responseStatus, token):
+    def customShadowCallback_Delete(self, payload, responseStatus, token):
         if responseStatus == "timeout":
             print("Delete request " + token + " time out!")
         if responseStatus == "accepted":
@@ -59,8 +57,7 @@ class ShadowUpdater:
         if responseStatus == "rejected":
             print("Delete request " + token + " rejected!")
     
-    @staticmethod
-    def updateAWSThing(update_json):
+    def updateAWSThing(self, update_json):
         thingName = shadowUtils.getDefaultThingName()
         
         myAWSIoTMQTTShadowClient = shadowUtils.createShadowClient()
@@ -80,7 +77,7 @@ class ShadowUpdater:
         # Update shadow 
         JSONPayload = '{"state":{"desired":' + update_json + '}}'
         #print('Shadow State: \n', JSONPayload)
-        deviceShadowHandler.shadowUpdate(JSONPayload, ShadowUpdater.customShadowCallback_Update, 5)
+        deviceShadowHandler.shadowUpdate(JSONPayload, self.customShadowCallback_Update, 5)
 
 #updater = ShadowUpdater()
 #updater.updateAWSThing(None, 'True')

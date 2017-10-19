@@ -1,3 +1,3 @@
-from webserver import server
+from webserver import server_dedicated
 
-server.run()
+server_dedicated.run()

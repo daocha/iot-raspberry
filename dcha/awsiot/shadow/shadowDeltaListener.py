@@ -4,7 +4,7 @@
  */
  '''
 import json
-from awsiot.shadow import shadowUtils as shadowUtils
+from awsiot.shadow import shadowUtils
 
 class ShadowDelta:
 
@@ -19,8 +19,7 @@ class ShadowDelta:
     # 	}
     # }
     # Custom Shadow callback
-    @staticmethod
-    def customShadowCallback_Delta(payload, responseStatus, token):
+    def customShadowCallback_Delta(self, payload, responseStatus, token):
         # payload is a JSON string ready to be parsed using json.loads(...)
         # in both Py2.x and Py3.x
         print(responseStatus)
@@ -32,8 +31,7 @@ class ShadowDelta:
         print("version: " + str(payloadDict["version"]))
         print("+++++++++++++++++++++++\n\n")
     
-    @staticmethod
-    def listenDelta():
+    def listenDelta(self):
         thingName = shadowUtils.getDefaultThingName()
         
         myAWSIoTMQTTShadowClient = shadowUtils.createShadowClient()
@@ -48,7 +46,7 @@ class ShadowDelta:
         deviceShadowHandler = myAWSIoTMQTTShadowClient.createShadowHandlerWithName(thingName, True)
         
         # Listen on deltas
-        deviceShadowHandler.shadowRegisterDeltaCallback(ShadowDelta.customShadowCallback_Delta)
+        deviceShadowHandler.shadowRegisterDeltaCallback(self.customShadowCallback_Delta)
         
         myAWSIoTMQTTShadowClient.disconnect()
         

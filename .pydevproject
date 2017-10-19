@@ -8,4 +8,10 @@
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/${PROJECT_DIR_NAME}/dcha</path>
 </pydev_pathproperty>
+<pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
+<key>DJANGO_MANAGE_LOCATION</key>
+<value>dcha/webserver/manage.py</value>
+<key>PY</key>
+<value>36</value>
+</pydev_variables_property>
 </pydev_project>
