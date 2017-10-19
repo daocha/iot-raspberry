@@ -11,8 +11,6 @@ import time
 import sys,traceback
 from actions.functions import Action as act
 
-
-
 print("initializing...")
 
 global lighton, lighton_new, shocking, shocking_new
@@ -20,7 +18,6 @@ lighton = False
 lighton_new = True
 shocking = False
 shocking_new = True
-
 
 def status_checking():
     print("status checking...")

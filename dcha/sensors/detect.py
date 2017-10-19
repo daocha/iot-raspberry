@@ -12,7 +12,6 @@ import time
 import sys,traceback
 from actions.functions import Action as act
 
-
 gpio.setmode(gpio.BOARD)
 gpio.setup(24, gpio.IN)
 gpio.setup(26, gpio.IN)
