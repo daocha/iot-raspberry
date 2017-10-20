@@ -9,6 +9,7 @@ import RPi.GPIO as gpio
 
 import _thread
 import time
+import threading
 import sys,traceback
 from actions.functions import Action as act
 
@@ -18,13 +19,18 @@ gpio.setup(26, gpio.IN)
 
 print("initializing...")
 
-global lighton, lighton_new, shocking, shocking_new, motion, motion_new
+def reset_shockstate():
+    global shocking_new
+    shocking_new = False
+
+global lighton, lighton_new, shocking, shocking_new, motion, motion_new, shock_timer
 lighton = False
 lighton_new = False
 shocking = False
 shocking_new = False
 motion = False
 motion_new = False
+shock_timer = threading.Timer(10.0, reset_shockstate)
 
 def light_callback(channel):
     onoff = gpio.input(channel)
@@ -43,13 +49,13 @@ def motion_callback(channel):
         motion_new = True
     else:
         motion_new = False
-
+        
 def shock_callback(channel):
     print("Shocking detected.")
-    global shocking_new
+    global shocking_new, shock_timer
     shocking_new = True
-    time.sleep(10)
-    shocking_new = False
+    shock_timer.cancel()
+    shock_timer.start()
 
 def status_checking():
     print("status checking...")
@@ -94,10 +100,10 @@ def main():
         # gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
         
         # 26 for body motion detecting sensor
-        gpio.add_event_detect(26, gpio.BOTH, callback=motion_callback, bouncetime=1000)
+        gpio.add_event_detect(26, gpio.BOTH, callback=motion_callback, bouncetime=200)
         
         # 24 for shock sensor: shocking
-        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=1000)
+        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=10)
         
         try:
             _thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
