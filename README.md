@@ -1,2 +1,8 @@
 # iot-raspberry
-iot project for raspberry pi
+This project includes:
+
+  - Raspberry Pi GPIO sensors
+  - AWS IoT synchronization
+  - Django webserver
+  
+  
