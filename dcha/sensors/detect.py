@@ -20,6 +20,7 @@ gpio.setup(26, gpio.IN)
 print("initializing...")
 
 def reset_shockstate():
+    print("Shocking state reset.")
     global shocking_new
     shocking_new = False
 
@@ -30,7 +31,6 @@ shocking = False
 shocking_new = False
 motion = False
 motion_new = False
-shock_timer = threading.Timer(10.0, reset_shockstate)
 
 def light_callback(channel):
     onoff = gpio.input(channel)
@@ -54,7 +54,11 @@ def shock_callback(channel):
     print("Shocking detected.")
     global shocking_new, shock_timer
     shocking_new = True
-    shock_timer.cancel()
+    try:
+        shock_timer.cancel()
+    except:
+        pass
+    shock_timer = threading.Timer(10.0, reset_shockstate)
     shock_timer.start()
 
 def status_checking():
@@ -103,7 +107,7 @@ def main():
         gpio.add_event_detect(26, gpio.BOTH, callback=motion_callback, bouncetime=200)
         
         # 24 for shock sensor: shocking
-        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=10)
+        gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=200)
         
         try:
             _thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
