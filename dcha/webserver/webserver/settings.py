@@ -58,7 +58,7 @@ ROOT_URLCONF = 'webserver.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -126,6 +126,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = "/var/www/python-static/"
 
 STATICFILES_DIRS = [
-    #os.path.join(BASE_DIR, "static"),
-    '/var/www/python-http/',
+    os.path.join(BASE_DIR, "static"),
 ]

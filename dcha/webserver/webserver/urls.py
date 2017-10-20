@@ -20,6 +20,6 @@ from django.views.static import serve
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^device/', include('iot_backend.urls')),
-    #url(r'^$', include('iot_backend.urls')),
-    url(r'^$', serve, {'path':'index.html', 'document_root': settings.STATIC_ROOT,}),
+    url(r'^$', include('iot_backend.urls')),
+    #url(r'^$', serve, {'path':'index.html', 'document_root': settings.STATIC_ROOT,}),
 ]
