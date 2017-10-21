@@ -10,13 +10,16 @@ class RPi2(implements(Device)):
     
     def toggleLight(self, enable):
         
-        if not self.lightOn:
+        if self.lightOn ^ enable:
             if enable:
                 print("*********** Turning on light...")
             else:
                 print("*********** Turning off light...")
         else:
-            print("*********** Light is already on....")
+            if self.lightOn:
+                print("*********** Light is already on....")
+            else:
+                print("*********** Light is already off....")
         self.lightOn = enable
         
     def startBackup(self):
