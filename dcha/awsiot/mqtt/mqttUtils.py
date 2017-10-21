@@ -30,6 +30,7 @@ def createMQTTClient():
         useWebsocket = config['AWSConfig']['useWebsocket'] == 'True'
         connectAWS = config['AWSConfig']['connectAWS'] == 'True'
         clientId = config['AWSConfig']['clientId']
+        debugMode = config['AWSConfig']['debugMode'] == 'True'
         
         if not connectAWS:
             print("Connecting AWS is turned off. Aborting...")
@@ -45,7 +46,10 @@ def createMQTTClient():
         
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
-        logger.setLevel(logging.ERROR)
+        if debugMode:
+            logger.setLevel(logger.setLevel(logging.DEBUG))
+        else:
+            logger.setLevel(logger.setLevel(logging.ERROR))
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)
@@ -82,6 +86,7 @@ def createMQTTShadowClient():
         useWebsocket = config['AWSConfig']['useWebsocket'] == 'True'
         connectAWS = config['AWSConfig']['connectAWS'] == 'True'
         clientId = config['AWSConfig']['clientId']
+        debugMode = config['AWSConfig']['debugMode'] == 'True'
         
         if not connectAWS:
             print("Connecting AWS is turned off. Aborting...")
@@ -97,7 +102,10 @@ def createMQTTShadowClient():
         
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
-        logger.setLevel(logging.ERROR)
+        if debugMode:
+            logger.setLevel(logger.setLevel(logging.DEBUG))
+        else:
+            logger.setLevel(logger.setLevel(logging.ERROR))
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)
