@@ -110,8 +110,9 @@ def main():
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=200)
         
         try:
-            #_thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
             _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
+            # *** This delta listening can not be running in a new thread ***
+            #loop_delta_listening('[Thread-Delta-Listening]')
         except: 
             print("Error: unable to start thread")
             traceback.print_exc(file=sys.stdout)

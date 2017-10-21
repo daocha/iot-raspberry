@@ -57,18 +57,14 @@ def loop_delta_listening(threadName):
         act.listenDelta()
         time.sleep(15)
 
-def add_topic_listening(threadName, topic):
-    print(threadName)
-    act.subscribeTopic(topic)
-
 def main():
     try:
         print("initializing, adding event listeners")
         topic = "$aws/things/pi2-sensors/shadow/update"
         try:
-            # _thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
-             _thread.start_new_thread(add_topic_listening, ('[Thread-Topic-Listening]', topic,))
-             _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
+            _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
+             # *** This delta listening can not be running in a new thread ***
+             loop_delta_listening('[Thread-Delta-Listening]')
         except: 
             print("Error: unable to start thread")
             traceback.print_exc(file=sys.stdout)

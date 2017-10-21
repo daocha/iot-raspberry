@@ -10,9 +10,6 @@ import sys, traceback
 from actions.functions import Action as act
 
 
-print("initializing...")
-
-
 def add_topic_listening(threadName, topic):
     print(threadName)
     act.subscribeTopic(topic)
