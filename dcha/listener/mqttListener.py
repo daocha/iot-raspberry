@@ -20,7 +20,8 @@ def add_topic_listening(threadName, topic):
 
 def main():
     try:
-        topic = "$aws/things/pi2-sensors/shadow/update/accepted"
+        #topic = "$aws/things/pi2-sensors/shadow/update/accepted"
+        topic = "$aws/things/pi2-sensors/shadow/update/delta"
         print("initializing, topic: ", topic)
         
         
