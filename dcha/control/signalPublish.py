@@ -35,8 +35,6 @@ def main():
         
         lightToggle = int(input('Toggle light: '))
         
-        time.sleep(3)
-        
         try:
             _thread.start_new_thread(signal_publish, ('[Thread-Signal-Publish]', lightToggle, ))
         except:

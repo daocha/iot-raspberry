@@ -16,6 +16,9 @@ import project
 
 
 class Action:
+    
+    
+    
     @staticmethod
     def updateThing(update_json):
         print("Updating iot state: ", update_json)
@@ -47,10 +50,10 @@ class Action:
         config.read(rootpath + 'config/aws.properties')
         deviceName = config['DevicecConfig']['deviceName']
         
-        device = None
-        if deviceName == "pi2":
+        global device
+        if device is None and deviceName == "pi2":
             device = RPi2()
-        elif deviceName == "pc":
+        elif device is None and deviceName == "pc":
             device = PC()
         
         if device is not None:
