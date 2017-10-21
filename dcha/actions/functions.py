@@ -8,6 +8,11 @@ from awsiot.mqtt.shadow.shadowDeltaListener import ShadowDelta
 from awsiot.mqtt.shadow.shadowGet import ShadowCall
 from awsiot.mqtt.shadow.shadowUpdater import ShadowUpdater
 from awsiot.mqtt.topic.topicSubscriber import TopicSubscriber
+from actions.devices.rpi2 import RPi2
+from actions.devices.pc import PC
+
+import configparser
+import project
 
 
 class Action:
@@ -30,9 +35,26 @@ class Action:
         return shadowCall.call()
 
     @staticmethod
-    def subscribeTopic(topic):
+    def subscribeTopic(topic, isMaster = False, callbackFn = None):
         print("Subscribing Topic: ", topic)
         topicSub = TopicSubscriber()
-        topicSub.subscribeTopic(topic)
+        topicSub.subscribeTopic(topic, isMaster, callbackFn)
+        
+    @staticmethod
+    def onMessage(message):
+        config = configparser.ConfigParser()
+        rootpath = project.getProjectPath()
+        config.read(rootpath + 'config/aws.properties')
+        deviceName = config['DevicecConfig']['deviceName']
+        
+        device = None
+        if deviceName == "pi2":
+            device = RPi2()
+        elif deviceName == "pc":
+            device = PC()
+        
+        if device is not None:
+            device.onMessage(message.topic, message.payload)
+        
 
 #Action.updateThing(True, None)

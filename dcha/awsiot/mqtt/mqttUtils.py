@@ -19,14 +19,22 @@ def getDefaultThingName():
         thingName = config['AWSConfig']['thingName']
         return thingName
 
-def createMQTTClient():
+def createMQTTClient(isMaster=False):
         config = configparser.ConfigParser()
         rootpath = project.getProjectPath()
         config.read(rootpath + 'config/aws.properties')
         host = config['AWSConfig']['endpoint']
         rootCAPath = rootpath + config['AWSConfig']['rootCA']
-        certificatePath = rootpath + config['AWSConfig']['cert']
-        privateKeyPath = rootpath + config['AWSConfig']['privateKey']
+        if isMaster == True:
+            certificatePath = rootpath + config['AWSConfig']['master_ctrl_cert']
+        else:
+            certificatePath = rootpath + config['AWSConfig']['device_cert']
+        
+        if isMaster == True:
+            privateKeyPath = rootpath + config['AWSConfig']['master_ctrl_privatekey'] 
+        else:
+            privateKeyPath = rootpath + config['AWSConfig']['device_privateKey']
+            
         useWebsocket = config['AWSConfig']['useWebsocket'] == 'True'
         connectAWS = config['AWSConfig']['connectAWS'] == 'True'
         clientId = config['AWSConfig']['clientId']
@@ -47,9 +55,9 @@ def createMQTTClient():
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
         if debugMode:
-            logger.setLevel(logger.setLevel(logging.DEBUG))
+            logger.setLevel(logging.DEBUG)
         else:
-            logger.setLevel(logger.setLevel(logging.ERROR))
+            logger.setLevel(logging.ERROR)
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)
@@ -75,14 +83,21 @@ def createMQTTClient():
         
         return myAWSIoTMQTTClient
 
-def createMQTTShadowClient():
+def createMQTTShadowClient(isMaster=False):
         config = configparser.ConfigParser()
         rootpath = project.getProjectPath()
         config.read(rootpath + 'config/aws.properties')
         host = config['AWSConfig']['endpoint']
         rootCAPath = rootpath + config['AWSConfig']['rootCA']
-        certificatePath = rootpath + config['AWSConfig']['cert']
-        privateKeyPath = rootpath + config['AWSConfig']['privateKey']
+        if isMaster == True:
+            certificatePath = rootpath + config['AWSConfig']['master_ctrl_cert']
+        else:
+            certificatePath = rootpath + config['AWSConfig']['device_cert']
+        
+        if isMaster == True:
+            privateKeyPath = rootpath + config['AWSConfig']['master_ctrl_privatekey'] 
+        else:
+            privateKeyPath = rootpath + config['AWSConfig']['device_privateKey']
         useWebsocket = config['AWSConfig']['useWebsocket'] == 'True'
         connectAWS = config['AWSConfig']['connectAWS'] == 'True'
         clientId = config['AWSConfig']['clientId']
@@ -103,9 +118,9 @@ def createMQTTShadowClient():
         # Configure logging
         logger = logging.getLogger("AWSIoTPythonSDK.core")
         if debugMode:
-            logger.setLevel(logger.setLevel(logging.DEBUG))
+            logger.setLevel(logging.DEBUG)
         else:
-            logger.setLevel(logger.setLevel(logging.ERROR))
+            logger.setLevel(logging.ERROR)
         streamHandler = logging.StreamHandler()
         formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         streamHandler.setFormatter(formatter)

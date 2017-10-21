@@ -30,20 +30,9 @@ class ShadowUpdater:
             payloadDict = json.loads(payload)
             print("~~~~~~~~~~~~~~~~~~~~~~~")
             print("Update request with token: " + token + " accepted!")
-            try:
-                print("lightOn: " + str(payloadDict["state"]["desired"]["lightOn"]))
-            except:
-                print('')
-                
-            try:
-                print("shocking: " + str(payloadDict["state"]["desired"]["shocking"]))
-            except:
-                print('')
             
-            try:
-                print("motion: " + str(payloadDict["state"]["desired"]["motion"]))
-            except:
-                print('')
+            for key, value in payloadDict.items():
+                print("[", key, "] = ", value)
                 
             print("~~~~~~~~~~~~~~~~~~~~~~~\n\n")
         if responseStatus == "rejected":

@@ -46,11 +46,11 @@ class TopicSubscriber:
         print(mid)
         print("++++++++++++++\n\n")
         
-    def subscribeTopic(self, topic):
+    def subscribeTopic(self, topic, isMaster = False, callbackFn = None):
         
-        myAWSIoTMQTTClient = mqttUtils.createMQTTClient()
+        myAWSIoTMQTTClient = mqttUtils.createMQTTClient(isMaster)
     
-        myAWSIoTMQTTClient.onMessage = self.customOnMessage
+        myAWSIoTMQTTClient.onMessage = callbackFn
         
         # Connect and subscribe to AWS IoT
         myAWSIoTMQTTClient.connect()

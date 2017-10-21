@@ -97,9 +97,17 @@ def loop_delta_listening(threadName):
         act.listenDelta()
         time.sleep(15)
 
+def add_topic_listening(threadName, topic, isMaster, callbackFn = None):
+    print(threadName)
+    act.subscribeTopic(topic, isMaster, callbackFn)
+    
 def main():
     try:
         print("initializing, adding event listeners")
+        
+        # topic = "$aws/things/master-console/shadow/update/accepted"
+        topic = "$aws/things/master-console/shadow/update/delta"
+        
         # 26 for light sensor: light on
         # gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
         
@@ -111,8 +119,11 @@ def main():
         
         try:
             _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
+            
+            _thread.start_new_thread(add_topic_listening, ('[Thread-Topic-Listening]', topic, True, act.onMessage))
+            
             # *** This delta listening can not be running in a new thread ***
-            #loop_delta_listening('[Thread-Delta-Listening]')
+            # loop_delta_listening('[Thread-Delta-Listening]')
         except: 
             print("Error: unable to start thread")
             traceback.print_exc(file=sys.stdout)
