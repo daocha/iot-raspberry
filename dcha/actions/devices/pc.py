@@ -10,6 +10,7 @@ class PC(implements(Device)):
         
     def onMessage(self, topic, payload):
         payloadDict = json.loads(payload)
-        
-        if payloadDict["backup"] is not None and payloadDict["backup"] == 'on':
-            self.startBackup()
+        state = payloadDict["state"]
+        if state is not None:
+            if state["backup"] is not None and state["backup"] == 'on':
+                self.startBackup()
