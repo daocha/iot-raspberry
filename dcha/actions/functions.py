@@ -14,10 +14,10 @@ from actions.devices.pc import PC
 import configparser
 import project
 
+global device
+device = None
 
 class Action:
-    
-    
     
     @staticmethod
     def updateThing(update_json):
