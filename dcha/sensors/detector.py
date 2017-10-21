@@ -58,7 +58,7 @@ def shock_callback(channel):
         shock_timer.cancel()
     except:
         pass
-    shock_timer = threading.Timer(16.0, reset_shockstate)
+    shock_timer = threading.Timer(61.0, reset_shockstate)
     shock_timer.start()
 
 def status_checking():
@@ -89,13 +89,13 @@ def loop_status_checking(threadName):
     while True:
         print(threadName)
         status_checking()
-        time.sleep(15)
+        time.sleep(60)
 
 def loop_delta_listening(threadName):
     while True:
         print(threadName)
         act.listenDelta()
-        time.sleep(15)
+        time.sleep(60)
 
 def add_topic_listening(threadName, topic, isMaster, callbackFn = None):
     print(threadName)
