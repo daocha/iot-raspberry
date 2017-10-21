@@ -4,7 +4,9 @@
  */
  '''
 import json
-from awsiot.shadow import shadowUtils
+
+from awsiot.mqtt import mqttUtils
+
 
 class ShadowUpdater:
 
@@ -58,9 +60,9 @@ class ShadowUpdater:
             print("Delete request " + token + " rejected!")
     
     def updateAWSThing(self, update_json):
-        thingName = shadowUtils.getDefaultThingName()
+        thingName = mqttUtils.getDefaultThingName()
         
-        myAWSIoTMQTTShadowClient = shadowUtils.createShadowClient()
+        myAWSIoTMQTTShadowClient = mqttUtils.createMQTTShadowClient()
         
         if myAWSIoTMQTTShadowClient is None:
             return

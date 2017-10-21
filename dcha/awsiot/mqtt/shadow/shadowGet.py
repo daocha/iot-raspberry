@@ -1,6 +1,8 @@
 import json
 import time
-from . import shadowUtils
+
+from awsiot.mqtt import mqttUtils
+
 
 class ShadowCall:
     
@@ -35,9 +37,9 @@ class ShadowCall:
             self.shadowResult += "Get request " + token + " rejected!"
             
     def call(self):
-        thingName = shadowUtils.getDefaultThingName()
+        thingName = mqttUtils.getDefaultThingName()
         
-        myAWSIoTMQTTShadowClient = shadowUtils.createShadowClient()
+        myAWSIoTMQTTShadowClient = mqttUtils.createMQTTShadowClient()
         
         if myAWSIoTMQTTShadowClient is not None:
             # Connect to AWS IoT

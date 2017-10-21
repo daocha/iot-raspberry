@@ -4,9 +4,11 @@
  */
  '''
 
-from awsiot.shadow.shadowUpdater import ShadowUpdater
-from awsiot.shadow.shadowDeltaListener import ShadowDelta
-from awsiot.shadow.shadowGet import ShadowCall
+from awsiot.mqtt.shadow.shadowDeltaListener import ShadowDelta
+from awsiot.mqtt.shadow.shadowGet import ShadowCall
+from awsiot.mqtt.shadow.shadowUpdater import ShadowUpdater
+from awsiot.mqtt.topic.topicSubscriber import TopicSubscriber
+
 
 class Action:
     @staticmethod
@@ -26,5 +28,11 @@ class Action:
         print("Retrieving thing's state...")
         shadowCall = ShadowCall()
         return shadowCall.call()
+
+    @staticmethod
+    def subscribeTopic(topic):
+        print("Subscribing Topic: ", topic)
+        topicSub = TopicSubscriber()
+        topicSub.subscribeTopic(topic)
 
 #Action.updateThing(True, None)

@@ -5,19 +5,19 @@
  * Push to AWS IoT 
  */
  '''
-import RPi.GPIO as gpio
-
 import _thread
-import time
+import sys, traceback
 import threading
-import sys,traceback
+import time
+
+import RPi.GPIO as gpio
 from actions.functions import Action as act
+
 
 gpio.setmode(gpio.BOARD)
 gpio.setup(24, gpio.IN)
 gpio.setup(26, gpio.IN)
 
-print("initializing...")
 
 def reset_shockstate():
     print("Shocking state reset.")
@@ -58,7 +58,7 @@ def shock_callback(channel):
         shock_timer.cancel()
     except:
         pass
-    shock_timer = threading.Timer(10.0, reset_shockstate)
+    shock_timer = threading.Timer(16.0, reset_shockstate)
     shock_timer.start()
 
 def status_checking():
@@ -97,9 +97,15 @@ def loop_delta_listening(threadName):
         act.listenDelta()
         time.sleep(15)
 
+def add_topic_listening(threadName, topic):
+    print(threadName)
+    act.subscribeTopic(topic)
+        
+
 def main():
     try:
-        print("adding event listeners")
+        print("initializing, adding event listeners")
+        topic = "$aws/things/pi2-sensors/shadow/update"
         # 26 for light sensor: light on
         # gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
         
@@ -110,7 +116,8 @@ def main():
         gpio.add_event_detect(24, gpio.RISING, callback=shock_callback, bouncetime=200)
         
         try:
-            _thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
+            #_thread.start_new_thread(loop_delta_listening, ('[Thread-Delta-Listening]',))
+            _thread.start_new_thread(add_topic_listening, ('[Thread-Topic-Listening]',topic,))
             _thread.start_new_thread(loop_status_checking, ('[Thread-Status-Checking]',))
         except: 
             print("Error: unable to start thread")

@@ -4,7 +4,9 @@
  */
  '''
 import json
-from awsiot.shadow import shadowUtils
+
+from awsiot.mqtt import mqttUtils
+
 
 class ShadowDelta:
 
@@ -32,9 +34,9 @@ class ShadowDelta:
         print("+++++++++++++++++++++++\n\n")
     
     def listenDelta(self):
-        thingName = shadowUtils.getDefaultThingName()
+        thingName = mqttUtils.getDefaultThingName()
         
-        myAWSIoTMQTTShadowClient = shadowUtils.createShadowClient()
+        myAWSIoTMQTTShadowClient = mqttUtils.createMQTTShadowClient()
         
         if myAWSIoTMQTTShadowClient is None:
             return

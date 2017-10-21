@@ -1,6 +1,6 @@
-from sensors import test
+from sensors import detector
 def main():
-    test.main()
+    detector.main()
     
 if __name__ == "__main__":
     main()
