@@ -105,8 +105,8 @@ def main():
     try:
         print("initializing, adding event listeners")
         
-        topic = "$aws/things/master-console/shadow/update/accepted"
-        # topic = "$aws/things/master-console/shadow/update/delta"
+        #topic = "$aws/things/master-console/shadow/update/accepted"
+        topic = "$aws/things/master-console/shadow/update/delta"
         
         # 26 for light sensor: light on
         # gpio.add_event_detect(26, gpio.BOTH, callback=light_callback, bouncetime=1000)
