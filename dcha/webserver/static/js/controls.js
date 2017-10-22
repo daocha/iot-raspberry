@@ -12,7 +12,7 @@ function toogleLight(enabled){
 			var msg = "";
 			var notifyType = "success";
 			if(res.success == 1){
-				msg = "Operation succeeded: turning light on has been successfully requested.";
+				msg = "Operation succeeded: turning light " + (enabled?"on":"off") + " has been successfully requested.";
 				notifyType = "success";
 				$("#bulb").toggleClass("bulb");
 				$("#bulb").toggleClass("bulb-disabled");
@@ -21,7 +21,7 @@ function toogleLight(enabled){
 					toogleLight(!enabled);
 				});
 			}else{
-				msg = "Operation failed: turning light on has been successfully requested.";
+				msg = "Operation failed: turning light " + (enabled?"on":"off") + " has been successfully requested.";
 				notifyType = "danger";
 			}
 			$.notify({
