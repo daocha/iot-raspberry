@@ -20,10 +20,10 @@ device = None
 class Action:
     
     @staticmethod
-    def updateThing(update_json):
+    def updateThing(update_json, callbackFn = None):
         print("Updating iot state: ", update_json)
         shadowUpdater = ShadowUpdater()
-        shadowUpdater.updateAWSThing(update_json)
+        shadowUpdater.updateAWSThing(update_json, callbackFn)
     
     @staticmethod
     def listenDelta():

@@ -30,13 +30,22 @@ class RPi2(implements(Device)):
         self.backingUp = True
         
     def onMessage(self, topic, payload):
+        
+        print("Received a new message: ")
+        print(payload)
+        print("from topic: ")
+        print(topic)
+        print("--------------\n\n")
+        
         payloadDict = json.loads(payload)
         state = payloadDict["state"]
         if state is not None:
-            if state["light"] is not None and state["light"] == '1':
+            if "light" in state and state["light"] == '1':
                 self.toggleLight(True)
-            elif state["light"] is not None and state["light"] == '0':
+            elif "light" in state and state["light"] == '0':
                 self.toggleLight(False)
                 
-            if state["backup"] is not None and state["backup"] == '1':
+            if "backup" in state and state["backup"] == '1':
                 self.startBackup()
+                
+                

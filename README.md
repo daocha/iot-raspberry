@@ -17,5 +17,6 @@ How to use?
 	run: python3 start_control.py
 	
 3) Start Django webserver for UI control:
-	run: start_webserver.sh
+	switch to dcha/webserver directory, then
+	run: python3 manage.py runserver 0:8001
 

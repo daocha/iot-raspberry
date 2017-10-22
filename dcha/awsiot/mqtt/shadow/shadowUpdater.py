@@ -48,7 +48,7 @@ class ShadowUpdater:
         if responseStatus == "rejected":
             print("Delete request " + token + " rejected!")
     
-    def updateAWSThing(self, update_json):
+    def updateAWSThing(self, update_json, callbackFn = None):
         thingName = mqttUtils.getDefaultThingName()
         
         myAWSIoTMQTTShadowClient = mqttUtils.createMQTTShadowClient()
@@ -68,7 +68,7 @@ class ShadowUpdater:
         # Update shadow 
         JSONPayload = '{"state":{"desired":' + update_json + '}}'
         #print('Shadow State: \n', JSONPayload)
-        deviceShadowHandler.shadowUpdate(JSONPayload, self.customShadowCallback_Update, 5)
+        deviceShadowHandler.shadowUpdate(JSONPayload, callbackFn, 5)
 
 #updater = ShadowUpdater()
 #updater.updateAWSThing(None, 'True')
