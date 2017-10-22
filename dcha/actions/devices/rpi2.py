@@ -24,7 +24,7 @@ class RPi2(implements(Device)):
         
     def startBackup(self):
         if not self.backingUp:
-            print("Start backing up data...")
+            print("*********** Start backing up data...")
         else:
             print("*********** Backup is in progress...")
         self.backingUp = True
@@ -39,13 +39,14 @@ class RPi2(implements(Device)):
         
         payloadDict = json.loads(payload)
         state = payloadDict["state"]
-        if state is not None:
-            if "light" in state and state["light"] == '1':
+        if state is not None and "desired" in state:
+            desired = state["desired"]
+            if "light" in desired and desired["light"] == '1':
                 self.toggleLight(True)
-            elif "light" in state and state["light"] == '0':
+            elif "light" in desired and desired["light"] == '0':
                 self.toggleLight(False)
                 
-            if "backup" in state and state["backup"] == '1':
+            if "backup" in desired and desired["backup"] == '1':
                 self.startBackup()
                 
                 
