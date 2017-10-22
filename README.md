@@ -5,4 +5,17 @@ This project includes:
   - AWS IoT synchronization
   - Django webserver
   
+
+Get Started:
   
+How to use?
+
+1) Start listening to orders and reporting sensor's status to control center on Raspberry Pi:
+	run: python3 start_rpi.py
+
+2) Start control center on server side:
+	run: python3 start_control.py
+	
+3) Start Django webserver for UI control:
+	run: start_webserver.sh
+
