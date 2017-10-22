@@ -78,9 +78,9 @@ def status_checking():
         updating = True
         shocking = shocking_new
         
-    update_json = '{"lightOn":"' + str(lighton_new) 
-    update_json += '", "shocking":"' + str(shocking_new) 
-    update_json += '", "motion":"' + str(motion_new) + '"}'
+    update_json = '{"bright":"' + str(int(lighton_new)) 
+    update_json += '", "shocking":"' + str(int(shocking_new)) 
+    update_json += '", "motion":"' + str(int(motion_new)) + '"}'
         
     if updating:
         act.updateThing(update_json)
