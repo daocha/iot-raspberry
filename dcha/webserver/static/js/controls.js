@@ -4,7 +4,7 @@ function toogleLight(enabled){
 		type: "POST",
 		dataType: "json",
 		contentType : "application/json",
-		url: '/device/control/request',
+		url: '/home/device/request',
 		data: JSON.stringify({
 			"control" : {"light" : enabled ? "1" : "0"}
 		}),
