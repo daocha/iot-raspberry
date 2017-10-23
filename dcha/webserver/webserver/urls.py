@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.conf import settings
 from django.views.static import serve
+from django.http import HttpResponse, HttpResponseRedirect
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
-    url(r'^device/', include('iot_backend.urls')),
+    url(r'^device/', lambda x: HttpResponseRedirect('/home/device')),
     url(r'^$', include('iot_backend.urls')),
     #url(r'^$', serve, {'path':'index.html', 'document_root': settings.STATIC_ROOT,}),
 ]
