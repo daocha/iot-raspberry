@@ -18,17 +18,17 @@ class ShadowCall:
             self.shadowResult += "<hr />"
             self.shadowResult += "Get request with token: " + token + " accepted!<br />"
             try:
-                self.shadowResult += "lightOn: " + str(payloadDict["state"]["desired"]["lightOn"]) + "<br />"
+                self.shadowResult += "bright: " + str(payloadDict["state"]["desired"]["brt"]) + "<br />"
             except:
                 self.shadowResult += ''
                 
             try:
-                self.shadowResult += "shocking: " + str(payloadDict["state"]["desired"]["shocking"]) + "<br />"
+                self.shadowResult += "shocking: " + str(payloadDict["state"]["desired"]["shk"]) + "<br />"
             except:
                 pass
             
             try:
-                self.shadowResult += "motion: " + str(payloadDict["state"]["desired"]["motion"]) + "<br />"
+                self.shadowResult += "motion: " + str(payloadDict["state"]["desired"]["mot"]) + "<br />"
             except:
                 pass
                 

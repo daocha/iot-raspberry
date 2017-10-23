@@ -43,10 +43,10 @@ class ControlRequest:
         
         if control is not None:
             if "light" in control:
-                update_json = {"light": control["light"]}
+                update_json = {"lgt": control["light"]}
                 
             if "backup" in control:
-                update_json = {"backup": control["backup"]}
+                update_json = {"bak": control["backup"]}
                 
             act.updateThing(json.dumps(update_json), controlReq.controlRequest_callback)
             

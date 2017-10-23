@@ -23,7 +23,7 @@ motion_new = False
 
 def signal_publish(threadName, lightToggle):
     print(threadName)
-    update_json = '{"light":"' + str(lightToggle) + '", "backup":"1"}'
+    update_json = '{"lgt":"' + str(lightToggle) + '", "bak":"1"}'
         
     act.updateThing(update_json)
 

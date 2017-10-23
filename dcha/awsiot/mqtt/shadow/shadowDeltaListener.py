@@ -27,9 +27,9 @@ class ShadowDelta:
         print(responseStatus)
         payloadDict = json.loads(payload)
         print("++++++++DELTA++++++++++")
-        print("lightOn: " + str(payloadDict["state"]["lightOn"]))
-        print("shocking: " + str(payloadDict["state"]["shocking"]))
-        print("motion: " + str(payloadDict["state"]["motion"]))
+        print("bright: " + str(payloadDict["state"]["brt"]))
+        print("shocking: " + str(payloadDict["state"]["shk"]))
+        print("motion: " + str(payloadDict["state"]["mot"]))
         print("version: " + str(payloadDict["version"]))
         print("+++++++++++++++++++++++\n\n")
     
