@@ -21,6 +21,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^device/', lambda x: HttpResponseRedirect('/home/device')),
-    url(r'^$', include('iot_backend.urls')),
+    url(r'^home/', include('iot_backend.urls')),
+    url(r'^', include('iot_backend.urls')),
     #url(r'^$', serve, {'path':'index.html', 'document_root': settings.STATIC_ROOT,}),
 ]
